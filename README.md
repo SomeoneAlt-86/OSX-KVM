@@ -108,7 +108,7 @@ Phenom II X3 720 does not. Ryzen processors work just fine.
   This repository uses rebase based workflows heavily.
 
 
-* Boot to MacOS 
+### Boot to MacOS 
 
 - CLI method (primary). Just run the `OpenCore-Boot.sh` script to start MacOS
 
@@ -117,40 +117,6 @@ Phenom II X3 720 does not. Ryzen processors work just fine.
   ```
 
   Note: This same script works for Big Sur, Catalina, Mojave, and High Sierra.
-
-- Use the `Disk Utility` tool within the macOS installer to partition, and
-  format the virtual disk attached to the macOS VM.
-
-- Go ahead, and install macOS 🙌
-
-- TIP: Using a non-APFS filesystem is recommended.
-
-- (OPTIONAL) Use this macOS VM disk with libvirt (virt-manager / virsh stuff).
-
-  - Edit `macOS-libvirt-Catalina.xml` file and change the various file paths (search
-    for `CHANGEME` strings in that file). The following command should do the
-    trick usually.
-
-    ```
-    sed "s/CHANGEME/$USER/g" macOS-libvirt-Catalina.xml > macOS.xml
-
-    virt-xml-validate macOS.xml
-    ```
-
-  - Create a VM by running the following command.
-
-    ```bash
-    virsh --connect qemu:///system define macOS.xml
-    ```
-
-  - If needed, grant necessary permissions to libvirt-qemu user,
-
-    ```
-    sudo setfacl -m u:libvirt-qemu:rx /home/$USER
-    sudo setfacl -R -m u:libvirt-qemu:rx /home/$USER/OSX-KVM
-    ```
-
-  - Launch `virt-manager` and start the `macOS` virtual machine.
 
 
 ### Setting Expectations Right
