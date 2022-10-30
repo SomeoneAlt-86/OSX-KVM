@@ -13,7 +13,7 @@
 # NOTE: Tweak the "MY_OPTIONS" line in case you are having booting problems!
 ############################################################################
 
-wget https://images.sick.codes/mac_hdd_ng.img
+wget https://images.sick.codes/mac_hdd_ng_auto_monterey.img
 
 MY_OPTIONS="+ssse3,+sse4.2,+popcnt,+avx,+aes,+xsave,+xsaveopt,check"
 
