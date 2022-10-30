@@ -107,59 +107,10 @@ Phenom II X3 720 does not. Ryzen processors work just fine.
 
   This repository uses rebase based workflows heavily.
 
-* Fetch macOS installer.
 
-  ```
-  ./fetch-macOS-v2.py
-  ```
+* Boot to MacOS 
 
-  You can choose your desired macOS version here. After executing this step,
-  you should have the `BaseSystem.dmg` file in the current folder.
-
-  ATTENTION: Let `>= Big Sur` setup sit at the `Country Selection` screen, and
-  other similar places for a while if things are being slow. The initial macOS
-  setup wizard will eventually succeed.
-
-  Sample run:
-
-  ```
-  $ ./fetch-macOS-v2.py
-  1. High Sierra (10.13)
-  2. Mojave (10.14)
-  3. Catalina (10.15)
-  4. Big Sur (11.7) - RECOMMENDED
-  5. Monterey (12.6)
-  6. Ventura (13)
-
-  Choose a product to download (1-6): 4
-  ```
-
-  Note: Modern NVIDIA GPUs are supported on HighSierra but not on later
-  versions of macOS.
-
-* Convert the downloaded `BaseSystem.dmg` file into the `BaseSystem.img` file.
-
-  ```
-  dmg2img -i BaseSystem.dmg BaseSystem.img
-  ```
-
-* Create a virtual HDD image where macOS will be installed. If you change the
-  name of the disk image from `mac_hdd_ng.img` to something else, the boot scripts
-  will need to be updated to point to the new image name.
-
-  ```
-  qemu-img create -f qcow2 mac_hdd_ng.img 128G
-  ```
-
-  NOTE: Create this HDD image file on a fast SSD/NVMe disk for best results.
-
-* Now you are ready to install macOS 🚀
-
-
-### Installation
-
-- CLI method (primary). Just run the `OpenCore-Boot.sh` script to start the
-  installation process.
+- CLI method (primary). Just run the `OpenCore-Boot.sh` script to start MacOS
 
   ```
   ./OpenCore-Boot.sh
