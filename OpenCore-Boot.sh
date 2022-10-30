@@ -13,6 +13,8 @@
 # NOTE: Tweak the "MY_OPTIONS" line in case you are having booting problems!
 ############################################################################
 
+wget https://images.sick.codes/mac_hdd_ng.img
+
 MY_OPTIONS="+ssse3,+sse4.2,+popcnt,+avx,+aes,+xsave,+xsaveopt,check"
 
 # This script works for Big Sur, Catalina, Mojave, and High Sierra. Tested with
