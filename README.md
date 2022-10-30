@@ -1,17 +1,5 @@
 ### Note
-
-This `README.md` documents the process of creating a `Virtual Hackintosh`
-system.
-
-Note: All blobs and resources included in this repository are re-derivable (all
-instructions are included!).
-
-:green_heart: Looking for **commercial** support with this stuff? I am [available
-over email](mailto:dhiru.kholia@gmail.com?subject=[GitHub]%20OSX-KVM%20Commercial%20Support%20Request&body=Hi%20-%20We%20are%20interested%20in%20purchasing%20commercial%20support%20options%20for%20your%20project.) for a chat for **commercial support options only**. Note: Project sponsors get access to the `Private OSX-KVM` repository, and direct support.
-
-Working with `Proxmox` and macOS? See [Nick's blog for sure](https://www.nicksherlock.com/).
-
-Yes, we support offline macOS installations now 🎉
+This is the fork of kholia/OSX-KVM with just a little simpler setup. I have personally tried both Docker-OSX by sickcodes and kholia's OSX-KVM. I like the idea of pre installed MacOS image of Docker-OSX and also the simplicty of kholia's repo . This fork uses sickcodes' MacOS pre installed image with OSX-KVM to directly boot into macOS without any installation.
 
 
 ### Contributing Back
@@ -110,14 +98,14 @@ Phenom II X3 720 does not. Ryzen processors work just fine.
 
 ### Boot to MacOS 
 
-- CLI method (primary). Just run the `OpenCore-Boot.sh` script to start MacOS
+- CLI method (primary). Just run the `OpenCore-Boot.sh` script to download the image and start MacOS
 
   ```
   ./OpenCore-Boot.sh
   ```
-
+  Note: As this is pre installed the username is ```user``` and password is ```alpine```. However you can change this later in system preferences. 
   Note: This same script works for Big Sur, Catalina, Mojave, and High Sierra.
-
+  
 
 ### Setting Expectations Right
 
