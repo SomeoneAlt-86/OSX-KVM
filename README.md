@@ -1,30 +1,5 @@
 ### Note
-This is the fork of kholia/OSX-KVM with just a little simpler setup. I have personally tried both Docker-OSX by sickcodes and kholia's OSX-KVM. I like the idea of pre installed MacOS image of Docker-OSX and also the simplicty of kholia's repo . This fork uses sickcodes' MacOS pre installed image with OSX-KVM to directly boot into macOS without any installation.
-
-
-### Contributing Back
-
-This project can always use your help, time and attention. I am looking for
-help (pull-requests!) with the following work items:
-
-* Documentation around running macOS on popular cloud providers (Hetzner, GCP,
-  AWS). See the `Is This Legal?` section and associated references.
-
-* Document (share) how you use this project to build + test open-source
-  projects / get your stuff done.
-
-* Document how to use this project for XNU kernel debugging and development.
-
-* Document the process to launch a bunch of headless macOS VMs (build farm).
-
-* Document usage of [munki](https://github.com/munki/munki) to deploy software
-  to such a `build farm`.
-
-* Enable VNC + SSH support out of the box or more easily.
-
-* Robustness improvements are always welcome!
-
-* (Not so) crazy idea - automate the macOS installation via OpenCV.
+This is the fork of kholia/OSX-KVM with just a little simpler setup. I have personally tried both macOS-Simple-KVM by foxlet and kholia's OSX-KVM. I like the simplicity of macOS-Simple-KVM . This fork uses the same code but makes the installation a little easier .
 
 
 ### Requirements
@@ -45,44 +20,13 @@ Phenom II X3 720 does not. Ryzen processors work just fine.
 
 ### Installation Preparation
 
-* KVM may need the following tweak on the host machine to work.
-
-  ```
-  echo 1 | sudo tee /sys/module/kvm/parameters/ignore_msrs
-  ```
-
-  To make this change permanent, you may use the following command.
-
-  ```
-  sudo cp kvm.conf /etc/modprobe.d/kvm.conf  # for intel boxes only, after cloning the repo below
-  ```
-
-* Install QEMU and other packages.
-
-  ```
-  sudo apt-get install qemu uml-utilities virt-manager git \
-      wget libguestfs-tools p7zip-full make dmg2img -y
-  ```
-
-  This step may need to be adapted for your Linux distribution.
-
-* Add user to the `kvm` and `libvirt` groups (might be needed).
-
-  ```
-  sudo usermod -aG kvm $(whoami)
-  sudo usermod -aG libvirt $(whoami)
-  sudo usermod -aG input $(whoami)
-  ```
-
-  Note: Re-login after executing this command.
-
 * Clone this repository on your QEMU system. Files from this repository are
   used in the following steps.
 
   ```
   cd ~
 
-  git clone --depth 1 --recursive https://github.com/kholia/OSX-KVM.git
+  git clone --depth 1 --recursive https://github.com/SomeoneAlt-86/OSX-KVM.git
 
   cd OSX-KVM
   ```
@@ -98,94 +42,16 @@ Phenom II X3 720 does not. Ryzen processors work just fine.
 
 ### Boot to MacOS 
 
-- CLI method (primary). Just run the `OpenCore-Boot.sh` script to download the image and start MacOS
+- CLI method (primary). Just run the `init.sh` script to initialize basically everything and make your computer ready to boot MacOS.
 
   ```
-  ./OpenCore-Boot.sh
+  ./init.sh
   ```
-  Note: As this is pre installed the username is ```user``` and password is ```alpine```. However you can change this later in system preferences. 
-  Note: This same script works for Big Sur, Catalina, Mojave, and High Sierra.
-  
-
-### Setting Expectations Right
-
-Nice job on setting up a `Virtual Hackintosh` system! Such a system can be used
-for a variety of purposes (e.g. software builds, testing, reversing work), and
-it may be all you need, along with some tweaks documented in this repository.
-
-However, such a system lacks graphical acceleration, a reliable sound sub-system,
-USB 3 functionality and other similar things. To enable these things, take a
-look at our [notes](notes.md). We would like to resume our testing and
-documentation work around this area. Please [reach out to us](mailto:dhiru.kholia@gmail.com?subject=[GitHub]%20OSX-KVM%20Funding%20Support)
-if you are able to fund this area of work.
-
-It is possible to have 'beyond-native-apple-hw' performance but it does require
-work, patience, and a bit of luck (perhaps?).
-
-
-### Post-Installation
-
-* See [networking notes](networking-qemu-kvm-howto.txt) to setup guest networking.
-
-  I have the following commands present in `/etc/rc.local`.
-
+- The script creates an alias, so that you can start macOS with just one command
+ 
+ ```
+  $ OSX
   ```
-  #!/usr/bin/env bash
-
-  sudo ip tuntap add dev tap0 mode tap
-  sudo ip link set tap0 up promisc on
-  sudo ip link set dev virbr0 up
-  sudo ip link set dev tap0 master virbr0
-  ```
-
-  This has been enough for me so far.
-
-  Note: You may need to enable the `rc.local` functionality manually on modern
-  Ubuntu versions. Check out the [notes](notes.md) included in this repository
-  for details.
-
-* To passthrough GPUs and other devices, see [these notes](notes.md#gpu-passthrough-notes).
-
-* Need a different resolution? Check out the [notes](notes.md#change-resolution-in-opencore) included in this repository.
-
-* Trouble with iMessage? Check out the [notes](notes.md#trouble-with-imessage) included in this repository.
-
-* Highly recommended macOS tweaks - https://github.com/sickcodes/osx-optimizer
-
-
-### Is This Legal?
-
-The "secret" Apple OSK string is widely available on the Internet. It is also included in a public court document [available here](http://www.rcfp.org/sites/default/files/docs/20120105_202426_apple_sealing.pdf). I am not a lawyer but it seems that Apple's attempt(s) to get the OSK string treated as a trade secret did not work out. Due to these reasons, the OSK string is freely included in this repository.
-
-Please review the ['Legality of Hackintoshing' documentation bits from Dortania's OpenCore Install Guide](https://dortania.github.io/OpenCore-Install-Guide/why-oc.html#legality-of-hackintoshing).
-
-Gabriel Somlo also has [some thoughts](http://www.contrib.andrew.cmu.edu/~somlo/OSXKVM/) on the legal aspects involved in running macOS under QEMU/KVM.
-
-You may also find [this 'Announcing Amazon EC2 Mac instances for macOS' article](https://aws.amazon.com/about-aws/whats-new/2020/11/announcing-amazon-ec2-mac-instances-for-macos/
-) interesting.
-
-Note: It is your responsibility to understand, and accept (or not accept) the
-Apple EULA.
-
-Note: This is not legal advice, so please make the proper assessments yourself
-and discuss with your lawyers if you have any concerns (Text credit: Dortania)
-
 
 ### Motivation
-
-My aim is to enable macOS based educational tasks, builds + testing, kernel
-debugging, reversing, and macOS security research in an easy, reproducible
-manner without getting 'invested' in Apple's closed ecosystem (too heavily).
-
-These `Virtual Hackintosh` systems are not intended to replace the genuine
-physical macOS systems.
-
-Personally speaking, this repository has been a way for me to 'exit' the Apple
-ecosystem. It has helped me to test and compare the interoperability of `Canon
-CanoScan LiDE 120` scanner, and `Brother HL-2250DN` laser printer. And these
-devices now work decently enough on modern versions of Ubuntu (Yay for free
-software). Also, a long time back, I had to completely wipe my (then) brand new
-`MacBook Pro (Retina, 15-inch, Late 2013)` and install Xubuntu on it - as the
-`OS X` kernel kept crashing on it!
-
-Backstory: I was a (poor) student in Canada in a previous life and Apple made [my work on cracking Apple Keychains](https://github.com/openwall/john/blob/bleeding-jumbo/src/keychain_fmt_plug.c) a lot harder than it needed to be. This is how I got interested in Hackintosh systems.
+It's just the plain OSX-KVM but with a little simpler setup, so that you are ready to go in no time.
