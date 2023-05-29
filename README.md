@@ -47,11 +47,7 @@ Phenom II X3 720 does not. Ryzen processors work just fine.
   ```
   ./init.sh
   ```
-- The script creates an alias, so that you can start macOS with just one command
- 
- ```
-  $ OSX
-  ```
+
 
 ### Motivation
 It's just the plain OSX-KVM but with a little simpler setup, so that you are ready to go in no time.
