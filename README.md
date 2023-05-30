@@ -45,6 +45,7 @@ Phenom II X3 720 does not. Ryzen processors work just fine.
 - CLI method (primary). Just run the `init.sh` script to initialize basically everything and make your computer ready to boot MacOS.
 
   ```
+  chmod +x init.sh
   ./init.sh
   ```
 
