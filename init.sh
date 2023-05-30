@@ -19,5 +19,8 @@ dmg2img -i BaseSystem.dmg BaseSystem.img > /dev/null 2>&1
 qemu-img create -f qcow2 mac_hdd_ng.img 128G > /dev/null 2>&1
 echo All Done!
 echo
+echo Creating alias OSX 
+echo alias OSX="~/OSX-KVM/OpenCore-Boot.sh" >> ~/.bashrc
+echo
 echo Starting..
 ./OpenCore-Boot.sh
